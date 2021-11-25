@@ -1,24 +1,51 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react'
+import './App.css'
+import TodoItems from './components/Todo/TodoItems'
+import Header from './components/UI/Header'
 
 function App() {
+  const initialList = [
+    {
+      id: Math.random().toString(),
+      title: 'Primo Task',
+      status: 'new',
+      owner: 'Grazia Sacchetti'
+    },
+    {
+        id: Math.random().toString(),
+        title: 'Secondo Task',
+        status: 'new',
+        owner: 'Grazia Sacchetti'
+    },
+    {
+        id: Math.random().toString(),
+        title: 'Terzo Task',
+        status: 'new',
+        owner: 'Grazia Sacchetti'
+    },
+  ]
+
+  const [itemsList, setItemsList] = useState(initialList)
+
+  const deleteFromList = (itemId) => {
+   setItemsList(itemsList.filter(el => el.id !== itemId))
+  }
+
+
+  const addItem = (data) => {
+    setItemsList((prevState) => {return  [...prevState, data] }
+    )
+  }
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Header />
+      <TodoItems items={itemsList} deleteItem={deleteFromList} />
     </div>
+      
+   
+    
   );
 }
 
